@@ -53,6 +53,7 @@ runs:
 
     - name: Deploy
       if: ${{ github.event_name != 'pull_request' }}
+      uses: actions/upload-artifact@v6
       with:
         name: rtc-artifacts
         path: ./*/target/*.jar
