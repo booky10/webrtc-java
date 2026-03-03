@@ -8,7 +8,7 @@ set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -nostdinc++ -D_LIBCPP_HARDENING_
 set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++ -v -Wl,--verbose")
 
 foreach(LINKER SHARED_LINKER)
-    set(CMAKE_${LINKER}_FLAGS "-fuse-ld=lld -Wl,-s -v -Wl,--verbose")
+    set(CMAKE_${LINKER}_FLAGS "-fuse-ld=lld -v -Wl,--verbose")
 endforeach()
 
 # IMPORTANT: Find sysroot but DO NOT set CMAKE_SYSROOT yet
