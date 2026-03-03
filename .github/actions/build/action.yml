@@ -12,14 +12,6 @@ inputs:
     description: 'The target platform.'
     required: true
 
-  maven-username:
-    description: 'The Maven username.'
-    required: true
-
-  maven-password:
-    description: 'The Maven password.'
-    required: true
-
 runs:
   using: "composite"
   steps:
@@ -42,9 +34,6 @@ runs:
       with:
         java-version: ${{ inputs.java-version }}
         distribution: 'temurin'
-        server-id: central
-        server-username: MAVEN_USERNAME
-        server-password: MAVEN_TOKEN
 
     - name: Build
       run: |
@@ -64,15 +53,6 @@ runs:
 
     - name: Deploy
       if: ${{ github.event_name != 'pull_request' }}
-      env:
-        MAVEN_USERNAME: ${{ inputs.maven-username }}
-        MAVEN_TOKEN: ${{ inputs.maven-password }}
-      run: |
-        if [ "${{ inputs.platform-name }}" == "linux_arm" ]; then
-          mvn deploy -DskipTests -Plinux-aarch32
-        elif [ "${{ inputs.platform-name }}" == "linux_arm64" ]; then
-          mvn deploy -DskipTests -Plinux-aarch64
-        else
-          mvn deploy -DskipTests
-        fi
-      shell: bash
+      with:
+        name: rtc-artifacts
+        path: ./*/target/*.jar
