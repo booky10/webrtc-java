@@ -4,7 +4,7 @@
  }
  
  void AudioSendStream::SendAudioData(std::unique_ptr<AudioFrame> audio_frame) {
-+  RTC_LOG(LS_VERBOSE) << "AudioSendStream::SendAudioData: " << std::this_thread::get_id();
++  RTC_LOG(LS_VERBOSE) << "AudioSendStream::SendAudioData: " << std::this_thread::get_id() << "; " << this;
    RTC_CHECK_RUNS_SERIALIZED(&audio_capture_race_checker_);
    RTC_DCHECK_GT(audio_frame->sample_rate_hz_, 0);
    TRACE_EVENT0("webrtc", "AudioSendStream::SendAudioData");
